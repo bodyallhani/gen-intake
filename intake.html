@@ -195,13 +195,13 @@
             <label>*차트번호:
               <input type="text" id="chartNo" placeholder="예: 1892" />
             </label>
-            <label>*이름:
+            <label><strong>*이름:</strong>
               <input type="text" id="name" />
             </label>
-            <label>*진찰일자:
+            <label><strong>*진찰일자:</strong>
               <input type="text" id="date" placeholder="예: 2025-11-30" />
             </label>
-            <label>*담당 한의사:
+            <label><strong>*담당 한의사:</strong>
               <input type="text" id="doctor" />
             </label>
             <label>사전 문진 핵심 요약 (필요 시):
@@ -229,7 +229,7 @@
           </fieldset>
 
           <fieldset>
-            <legend>설진</legend>
+            <legend><strong>설진</strong></legend>
             <label>설질:
               <textarea id="tongueBody" placeholder="담홍/홍/자/담백/건조/부종/소설 등"></textarea>
             </label>
@@ -248,7 +248,7 @@
           </fieldset>
 
           <fieldset>
-            <legend>맥진</legend>
+            <legend><strong>맥진</strong></legend>
             <label>맥상:
               <textarea id="pulseQuality" placeholder="弦/細/滑/濡/緩/遲/數/허실 등"></textarea>
             </label>
@@ -265,7 +265,7 @@
 
           <fieldset>
             <legend>압진 / 복진 / 근골격</legend>
-            <label>흉협·상복부·명치 압통/긴장:
+            <label><strong>흉협·상복부·명치 압통/긴장:</strong>
               <textarea id="abdominal" placeholder="흉협창, 명치 답답/압통, 위완부 긴장 등"></textarea>
             </label>
             <label>장명·복부 촉진 소견:
@@ -283,7 +283,7 @@
           </fieldset>
 
           <fieldset>
-            <legend>위험 신호 / 양방적 고려</legend>
+            <legend><strong>위험신호</strong> / 양방적 고려</legend>
             <label>심혈관 위험 소견:
               <textarea id="cvRisk" placeholder="부정맥 의심, 흉통, 안정 시 호흡곤란, 실신/전실신, 혈압 이상 등"></textarea>
             </label>
@@ -309,7 +309,7 @@
             <label>주요 병소 (장부/경락/척추 segment):
               <textarea id="mainFocus" placeholder="중심 타겟으로 볼 부위 (장부 + 척추 레벨 등)"></textarea>
             </label>
-            <label>치료 우선순위:
+            <label><strong>치료 우선순위:</strong>
               <textarea id="priority" placeholder="예: 1) 자율신경 안정 2) 수면·소화 개선 3) 구조 교정 등"></textarea>
             </label>
             <label>교정/추나 vs 한약 비중에 대한 의사 판단:
@@ -328,7 +328,7 @@
         <p class="hint">
           아래 내용을 전체 선택(Ctrl+A 또는 길게 누르기 → 전체선택) 후 복사<br>
           <br>
-          <strong>“1892 2차문진 최종 보고.”</strong><br>
+          <strong>“차트번호 1892 2차문진 보고.”</strong><br>
         </p>
         <textarea id="output" readonly></textarea>
         <button type="button" onclick="copyOutput()">텍스트 복사하기</button>
