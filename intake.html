@@ -15,7 +15,7 @@
     .page-wrapper {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 16px 8px 90px; /* 모바일 하단 메모창 고려해 여백 */
+      padding: 16px 8px 150px; /* ⬅⬅ 하단 여백 크게: 모바일에서 복사 버튼 가리지 않도록 */
       box-sizing: border-box;
     }
 
@@ -146,7 +146,7 @@
     /* ====== PC / 큰 화면 레이아웃 ====== */
     @media (min-width: 900px) {
       .page-wrapper {
-        padding: 20px 8px 24px;
+        padding: 20px 8px 24px; /* ⬅⬅ PC에서는 하단 여백 원래처럼 */
       }
 
       .layout {
@@ -181,9 +181,9 @@
   <div class="page-wrapper">
     <h1>바디올 청정한약 2차 문진표 (의사용)</h1>
     <p class="hint">
-      사전 문진 후, 대면 진찰하면서 한의사가 직접 작성하는 용도입니다.<br>
-      잘 모르거나 애매한 부분은 비워두셔도 됩니다.<br>
-      작성 후 <strong>“문진 텍스트 생성”</strong> 버튼을 눌러 나온 텍스트로 진단할 수 있습니다.
+      1차 문진 후, 대면 진찰하면서 한의사가 직접 작성하는 용도.<br>
+      잘 모르거나 애매한 부분은 비워둘것.<br>
+      작성 후 <strong>“문진 텍스트 생성”</strong> 버튼을 눌러 나온 텍스트로 진단.
     </p>
 
     <div class="layout">
@@ -192,16 +192,16 @@
         <form id="doctorForm">
           <fieldset>
             <legend>기본정보 (의사용)</legend>
-            <label>차트번호:
+            <label>*차트번호:
               <input type="text" id="chartNo" placeholder="예: 1892" />
             </label>
-            <label>이름/이니셜 (선택):
+            <label>*이름:
               <input type="text" id="name" />
             </label>
-            <label>진찰일자:
+            <label>*진찰일자:
               <input type="text" id="date" placeholder="예: 2025-11-30" />
             </label>
-            <label>담당 한의사:
+            <label>*담당 한의사:
               <input type="text" id="doctor" />
             </label>
             <label>사전 문진 핵심 요약 (필요 시):
@@ -336,10 +336,8 @@
 
       <!-- 우측 / 모바일 하단: 메모 및 복붙용 텍스트창 -->
       <div class="note-container">
-        <div class="note-header">복붙용 메모 / 2차 문진 정리</div>
+        <div class="note-header">1차 문진표 정리</div>
         <div class="note-desc">
-          ChatGPT에서 받은 분석 내용을 여기 붙여 넣고,<br />
-          환자 진찰하면서 항목별로 바로 정리해 주세요.
         </div>
         <textarea id="noteArea" placeholder="예:&#10;[설·맥] 담홍, 태박백, 홍점(+), 설하정맥 약간 팽창&#10;[복진] 명치 압통(+), 위완부 긴장(++), 흉추4–6번 긴장 등"></textarea>
       </div>
