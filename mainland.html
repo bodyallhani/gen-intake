@@ -8,18 +8,21 @@
     :root {
       --bg: #05080f; 
       --card: rgba(255, 255, 255, 0.03);
-      --card-hover: rgba(255, 255, 255, 0.08);
       --text: #f8fafc;
       --muted: #94a3b8;
       --line: rgba(255, 255, 255, 0.08);
-      --accent: #6ee7ff;
+      --accent: #ffffff; /* 화이트 포인트 */
       --radius: 20px;
       --max: 1140px;
 
-      --ym: #60a5fa; --gu: #a78bfa; --tu: #6ee7b7; --su: #fbbf24;
+      /* 제안하신 직관적 컬러 팔레트 */
+      --ym: #fbbf24; /* 양명: 노란색 (토/대사) */
+      --gu: #a78bfa; /* 궐음: 보라색 (조율/신경) */
+      --tu: #34d399; /* 태음: 초록색 (목/면역) */
+      --su: #3b82f6; /* 소음: 파란색 (수/에너지) */
     }
 
-    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
     
     body {
       margin: 0;
@@ -27,122 +30,123 @@
       color: var(--text);
       background: var(--bg);
       line-height: 1.5;
-      word-break: keep-all; /* 한글 줄바꿈 최적화 */
+      word-break: keep-all;
     }
 
+    /* 오행의 조화를 상징하는 배경 광원 */
     .bg-glow {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: 
-        radial-gradient(circle at 20% 10%, rgba(110, 231, 255, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 80% 90%, rgba(167, 139, 250, 0.05) 0%, transparent 40%);
+        radial-gradient(circle at 10% 10%, rgba(251, 191, 36, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
       z-index: -1;
     }
 
     .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
     a { color: inherit; text-decoration: none; transition: 0.2s; }
 
-    /* Nav: Mobile Simple */
+    /* Nav */
     .nav {
       position: sticky; top: 0; z-index: 100;
       backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-      background: rgba(5, 8, 15, 0.8);
-      border-bottom: 1px solid var(--line);
+      background: rgba(5, 8, 15, 0.8); border-bottom: 1px solid var(--line);
     }
-    .navin { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .navin { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
     .brand { display: flex; align-items: center; gap: 8px; }
-    .logo-dot { width: 24px; height: 24px; border-radius: 6px; background: linear-gradient(135deg, var(--accent), var(--gu)); }
+    .logo-dot { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, var(--ym), var(--su)); }
     .brand strong { font-size: 15px; letter-spacing: -0.5px; }
 
-    /* Hero: Mobile Impact */
+    /* Hero */
     .hero { padding: 60px 0 40px; text-align: center; }
     .kicker {
-      font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 1.5px;
+      font-size: 11px; font-weight: 800; color: #fff; letter-spacing: 1.5px;
       text-transform: uppercase; margin-bottom: 12px; display: inline-block;
-      padding: 4px 12px; border: 1px solid rgba(110,231,255,0.2); border-radius: 99px;
+      padding: 4px 12px; border: 1px solid var(--line); border-radius: 99px;
     }
-    .hero h1 {
-      font-size: 30px; line-height: 1.3; font-weight: 800;
-      margin: 0 0 20px; letter-spacing: -1px;
-    }
-    .hero p.sub {
-      font-size: 15px; color: var(--muted); margin: 0 auto 32px;
-      padding: 0 10px;
-    }
+    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.3; margin: 0 0 20px; letter-spacing: -1px; }
+    .hero p.sub { font-size: 16px; color: var(--muted); margin-bottom: 32px; }
 
-    /* Buttons: Mobile Touch-Friendly */
+    /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 14px;
-      width: 100%; margin-bottom: 10px; border: 1px solid var(--line);
+      padding: 16px 24px; border-radius: 14px; font-weight: 700; font-size: 15px;
+      width: 100%; border: 1px solid var(--line); transition: 0.3s;
     }
     .btn.primary { background: #fff; color: #000; border: none; }
     .btn.outline { background: transparent; color: #fff; }
 
-    /* Personal Result: Focused */
+    /* Personalized Box: 축별 컬러 동적 적용 */
     .personal {
       display: none; margin: 30px 0; padding: 24px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-      border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.1);
-      text-align: left;
+      background: rgba(255,255,255,0.02);
+      border-radius: var(--radius); border: 1px solid var(--line);
+      text-align: left; animation: fadeIn 0.5s ease;
     }
-    .p-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .badge { padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); font-size: 11px; font-weight: 700; }
+    .p-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; border: 1px solid; }
 
-    /* Grid: 1-column on mobile */
+    /* Quadrant Grid */
     .quad-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 60px; }
     .quad {
-      position: relative; height: 200px; border-radius: var(--radius); overflow: hidden;
-      border: 1px solid var(--line);
+      position: relative; height: 220px; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--line); cursor: pointer; transition: 0.4s;
     }
     .quad-img {
       position: absolute; inset: 0; background-size: cover; background-position: center;
-      filter: brightness(0.4);
+      filter: brightness(0.5); transition: 0.6s;
     }
+    .quad:hover .quad-img { transform: scale(1.1); filter: brightness(0.7); }
     .quad-content {
       position: relative; height: 100%; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end;
-      background: linear-gradient(to top, rgba(5, 8, 15, 0.8), transparent);
+      background: linear-gradient(to top, rgba(5, 8, 15, 0.9), transparent);
     }
-    .quad-content .pill { font-size: 10px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
-    .quad-content h3 { font-size: 18px; margin: 0 0 4px; }
+    .quad-content .pill { font-size: 10px; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; }
+    .quad-content h3 { font-size: 20px; margin: 0 0 4px; }
     .quad-content p { font-size: 13px; color: var(--muted); margin: 0; }
 
-    /* Process: Visual Steps */
+    /* Section Common */
     section { padding: 60px 0; border-top: 1px solid var(--line); }
-    .sec-header { text-align: center; margin-bottom: 32px; }
-    .sec-header h2 { font-size: 24px; font-weight: 800; margin: 0 0 10px; }
-    .sec-header p { font-size: 14px; color: var(--muted); }
+    .sec-header { text-align: center; margin-bottom: 40px; }
+    .sec-header h2 { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
 
+    /* Steps */
     .step-list { display: flex; flex-direction: column; gap: 24px; }
-    .step-item { display: flex; gap: 16px; }
+    .step-item { display: flex; gap: 16px; align-items: flex-start; }
     .step-num { 
-      min-width: 32px; height: 32px; border-radius: 50%; background: var(--accent);
-      color: #000; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 14px;
+      min-width: 32px; height: 32px; border-radius: 10px; background: #fff;
+      color: #000; font-weight: 800; display: flex; align-items: center; justify-content: center;
     }
-    .step-text h4 { margin: 0 0 4px; font-size: 16px; color: #fff; }
+    .step-text h4 { margin: 0 0 4px; font-size: 17px; color: #fff; }
     .step-text p { margin: 0; font-size: 14px; color: var(--muted); }
 
     /* FAQ */
     .faq details { margin-bottom: 12px; background: var(--card); border-radius: 12px; border: 1px solid var(--line); }
-    .faq summary { padding: 16px; cursor: pointer; font-weight: 700; list-style: none; font-size: 14px; }
-    .faq p { padding: 0 16px 16px; color: var(--muted); font-size: 13px; }
+    .faq summary { padding: 18px; cursor: pointer; font-weight: 700; font-size: 15px; list-style: none; }
+    .faq p { padding: 0 18px 18px; color: var(--muted); font-size: 14px; }
 
-    /* Sticky CTA: Floating */
+    /* Sticky Footer */
     .sticky {
       position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 200;
-      background: #fff; color: #000; padding: 12px 20px; border-radius: 16px;
+      background: #fff; color: #000; padding: 12px 20px; border-radius: 18px;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
     }
 
-    footer { padding: 40px 0 100px; text-align: center; color: var(--muted); font-size: 12px; }
+    footer { padding: 40px 0 120px; text-align: center; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
 
-    /* Desktop Adjustments */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Tablet & Desktop Layout */
     @media (min-width: 769px) {
-      .btn { width: auto; margin-bottom: 0; }
-      .quad-grid { grid-template-columns: repeat(4, 1fr); }
+      .btn { width: auto; }
+      .quad-grid { grid-template-columns: repeat(2, 1fr); }
+      .quad { height: 300px; }
       .hero h1 { font-size: 52px; }
-      .quad { height: 380px; }
       .step-list { flex-direction: row; }
+      .step-item { flex: 1; flex-direction: column; text-align: center; align-items: center; }
+    }
+    @media (min-width: 1024px) {
+      .quad-grid { grid-template-columns: repeat(4, 1fr); }
     }
   </style>
 </head>
@@ -151,76 +155,71 @@
   <div class="bg-glow"></div>
 
   <header class="nav">
-    <div class="container">
-      <div class="navin">
-        <a class="brand" href="mainland.html">
-          <div class="logo-dot"></div>
-          <strong>바디올 난치 신경-기능센터</strong>
-        </a>
-      </div>
+    <div class="navin">
+      <a class="brand" href="mainland.html">
+        <div class="logo-dot"></div>
+        <strong>바디올 난치 신경-기능센터</strong>
+      </a>
     </div>
   </header>
 
   <main class="container">
     <section class="hero" style="border:none;">
-      <div class="kicker">Medical Innovation</div>
-      <h1>파편화된 증상이 아닌<br><span style="color:var(--accent)">몸의 축(Axis)</span>을 읽습니다.</h1>
-      <p class="sub">
-        반복되는 난치성 증상의 원인은 하나가 아닙니다. <br>
-        무너진 4대 기능축을 진단하여 근본적인 해결책을 제시합니다.
-      </p>
-      <div style="padding: 0 20px;">
-        <a class="btn primary" href="m1.html">30초 축 분류 검사 시작</a>
-        <a class="btn outline" href="#axes">시스템 상세 보기</a>
+      <div class="kicker">Core Function Diagnosis</div>
+      <h1>파편화된 증상이 아닌<br><span style="background: linear-gradient(to right, var(--ym), var(--gu), var(--tu), var(--su)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">질병의 축</span>을 바로잡습니다.</h1>
+      <p class="sub">수많은 검사로도 해결되지 않았던 난치성 증상의 뿌리,<br>무너진 4대 기능축 진단에서 해답을 찾습니다.</p>
+      <div style="padding: 0 10px;">
+        <a class="btn primary" href="m1.html">30초, 나의 유형 검사하기</a>
+        <a class="btn outline" href="#axes" style="margin-top:10px;">4대 기능축 시스템 보기</a>
       </div>
 
       <div class="personal" id="personalBox">
         <div class="p-header">
-          <div class="badge" id="pBadge">MY RESULT</div>
-          <div style="font-size: 11px; color: var(--muted);" id="pScore">SCORE</div>
+          <div class="badge" id="pBadge">ANALYSIS RESULT</div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--muted);" id="pScore">SCORE DATA</div>
         </div>
-        <h3 id="pTitle" style="margin: 0 0 8px; font-size: 17px;">-</h3>
-        <p id="pDesc" style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">-</p>
-        <a class="btn primary" id="pGoAxis" href="#" style="padding: 10px;">정밀 분석 결과 보기</a>
+        <h3 id="pTitle" style="margin: 0 0 10px; font-size: 20px;">-</h3>
+        <p id="pDesc" style="color: var(--muted); font-size: 15px; margin-bottom: 24px;">-</p>
+        <a class="btn primary" id="pGoAxis" href="#" style="padding: 12px; width: auto;">나의 축 정밀 리포트 보기</a>
       </div>
     </section>
 
     <section id="axes">
       <div class="sec-header">
-        <h2>4대 기능축 시스템</h2>
-        <p>현대 한의학으로 재정의한 핵심 기능 체계</p>
+        <h2>바디올 4대 기능축 시스템</h2>
+        <p>환자의 변증에 따른 기능 분류</p>
       </div>
       <div class="quad-grid">
         <div class="quad" data-go="ym.html">
-          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=600');"></div>
+          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1550684848-d13d81d89406?auto=format&fit=crop&q=80&w=800');"></div>
           <div class="quad-content">
-            <div class="pill">SOIL / Metabolism</div>
+            <div class="pill" style="color: var(--ym);">SOIL / Metabolism</div>
             <h3>양명축: 소화·대사</h3>
-            <p>에너지의 흡수와 노폐물 대사 리듬</p>
+            <p>따뜻한 소화 에너지와 원활한 노폐물 배출 리듬</p>
           </div>
         </div>
         <div class="quad" data-go="gu.html">
-          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600');"></div>
+          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&q=80&w=800');"></div>
           <div class="quad-content">
-            <div class="pill">WIND / Regulation</div>
+            <div class="pill" style="color: var(--gu);">WIND / Regulation</div>
             <h3>궐음축: 자율신경</h3>
-            <p>신경계의 예민도와 조절 시스템</p>
+            <p>신경계의 고요한 고요함과 조화로운 신체 조율</p>
           </div>
         </div>
         <div class="quad" data-go="tu.html">
-          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&q=80&w=600');"></div>
+          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80&w=800');"></div>
           <div class="quad-content">
-            <div class="pill">METAL / Defense</div>
+            <div class="pill" style="color: var(--tu);">WOOD / Defense</div>
             <h3>태음축: 면역·호흡</h3>
-            <p>외부 자극에 대한 방어와 결속력</p>
+            <p>맑은 산소의 순환과 견고한 세포 방어 체계</p>
           </div>
         </div>
         <div class="quad" data-go="su.html">
-          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&q=80&w=600');"></div>
+          <div class="quad-img" style="background-image: url('https://images.unsplash.com/photo-1518116348443-4a242a424002?auto=format&fit=crop&q=80&w=800');"></div>
           <div class="quad-content">
-            <div class="pill">WATER / Recovery</div>
+            <div class="pill" style="color: var(--su);">WATER / Essence</div>
             <h3>소음축: 회복·에너지</h3>
-            <p>근본적인 에너지 재생과 지속력</p>
+            <p>깊은 수기(水氣)를 통한 근본적 생명력의 재생</p>
           </div>
         </div>
       </div>
@@ -228,61 +227,61 @@
 
     <section id="dx">
       <div class="sec-header">
-        <h2>통합 진단 프로세스</h2>
-        <p>정확한 치료는 정확한 데이터에서 시작됩니다.</p>
+        <h2>심층 통합 진단</h2>
+        <p>과학적 시스템과 정통 한의학의 교차 분석</p>
       </div>
       <div class="step-list">
         <div class="step-item">
           <div class="step-num">1</div>
           <div class="step-text">
-            <h4>정밀 문진 분석</h4>
-            <p>증상의 히스토리와 생활 트리거를 구조화하여 파악합니다.</p>
+            <h4>데이터 기반 문진</h4>
+            <p>환자가 느끼는 체감 지표를 세밀하게 수집합니다.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
           <div class="step-text">
-            <h4>다각적 임상 평가</h4>
-            <p>맥진, 설진 및 기능적 지표를 통해 현재 상태를 수치화합니다.</p>
+            <h4>축별 불균형 판별</h4>
+            <p>수집된 데이터를 통해 가장 먼저 복구할 축을 선정합니다.</p>
           </div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
           <div class="step-text">
-            <h4>축별 맞춤 플랜</h4>
-            <p>가장 먼저 복구해야 할 축을 설정하고 단계별 치료를 시작합니다.</p>
+            <h4>단계별 치료 최적화</h4>
+            <p>몸의 기능이 스스로를 유지하도록 돕는 체계적인 플랜입니다.</p>
           </div>
         </div>
       </div>
     </section>
 
     <section id="faq">
-      <div class="sec-header"><h2>자주 묻는 질문</h2></div>
+      <div class="sec-header"><h2>주요 궁금증</h2></div>
       <div class="faq">
         <details>
-          <summary>여러 축이 겹쳐 있는 경우는요?</summary>
-          <p>난치성 증상의 경우 대부분 2개 이상의 축이 얽혀 있습니다. 바디올은 그 중 '선행 원인'이 되는 축을 먼저 찾아 치료 효율을 높입니다.</p>
+          <summary>치료 순서가 왜 중요한가요?</summary>
+          <p>여러 축이 동시에 무너진 경우, 에너지(소음)가 없는데 소화(양명)만 치료하면 몸이 버티지 못합니다. 바디올은 이 선후관계를 명확히 잡습니다.</p>
         </details>
         <details>
-          <summary>검사상 이상 없는데 치료가 되나요?</summary>
-          <p>현대 의학적 검사로 잡히지 않는 '기능의 흔들림'을 변증을 통해 찾아내므로 원인 모를 불편감 해결에 특화되어 있습니다.</p>
+          <summary>어떤 검사를 하게 되나요?</summary>
+          <p>전통적인 변증 진찰과 함께 현대적인 기능 지표를 결합하여, 환자 본인도 몰랐던 신체 리듬의 오류를 찾아냅니다. 맥파진단장비인 SA3000P를 사용해 현대의학적인 인체상태와 P-code 심층문진을 이용한 현대적 진단과, 전통적인 변증 진찰을 통해, 진단과 치료의 정확도를 높입니다. </p>
         </details>
       </div>
     </section>
 
     <footer>
-      <p>바디올한의원 · 난치 신경-기능센터<br>대표: OOO | 사업자번호: 000-00-00000</p>
-      <p style="opacity: 0.4; margin-top: 10px;">© 2024 Bodyall. All rights reserved.</p>
+      <p>바디올한의원 · 난치 신경-기능센터</p>
+      <p style="opacity: 0.3; margin-top: 10px;">© 2024 Bodyall Center. Professional Healthcare.</p>
     </footer>
   </main>
 
   <div class="sticky">
-    <div style="font-size: 13px; font-weight: 800; letter-spacing: -0.5px;">내 상태 정밀하게 전달하기</div>
-    <a class="btn primary" href="https://bodyallhani.github.io/herbmed0/intake.html" style="width: auto; margin-bottom: 0; padding: 10px 20px;">문진표 작성</a>
+    <div style="font-size: 14px; font-weight: 800;">심층 문진 작성</div>
+    <a class="btn primary" href="https://bodyallhani.github.io/herbmed0/intake.html" style="width: auto; padding: 10px 20px;">문진 시작</a>
   </div>
 
   <script>
-    // 앵커 스크롤
+    // Smooth Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -291,18 +290,18 @@
       });
     });
 
-    // 카드 이동
+    // Card Link
     document.querySelectorAll(".quad").forEach(q => {
       q.addEventListener("click", () => window.location.href = q.dataset.go);
     });
 
-    // LocalStorage Logic
+    // LocalStorage Results
     (function(){
       const AX = {
-        ym: { name:"양명축: 소화·대사", color:"#60a5fa", file:"ym.html", desc:"대사 리듬의 안정이 최우선인 상태입니다." },
-        gu: { name:"궐음축: 자율신경", color:"#a78bfa", file:"gu.html", desc:"자율신경계의 조절력 회복이 필요합니다." },
-        tu: { name:"태음축: 면역·호흡", color:"#6ee7b7", file:"tu.html", desc:"신체 경계선의 방어력 보강이 시급합니다." },
-        su: { name:"소음축: 회복·에너지", color:"#fbbf24", file:"su.html", desc:"근본적인 심부 에너지 복구가 핵심입니다." }
+        ym: { name:"양명축: 소화·대사", color:"#fbbf24", file:"ym.html", desc:"위장의 따뜻한 대사 에너지를 복구해야 하는 상태입니다." },
+        gu: { name:"궐음축: 자율신경", color:"#a78bfa", file:"gu.html", desc:"신경계의 조율 리듬을 고요하게 바로잡아야 합니다." },
+        tu: { name:"태음축: 면역·호흡", color:"#34d399", file:"tu.html", desc:"면역 방어막의 결속력을 높여 외부 자극을 차단해야 합니다." },
+        su: { name:"소음축: 회복·에너지", color:"#3b82f6", file:"su.html", desc:"근본적인 수기(水氣)를 채워 에너지를 재생해야 합니다." }
       };
 
       try {
