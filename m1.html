@@ -82,7 +82,7 @@
     }
     .opt strong { font-size: 14px; display: block; font-weight: 600; }
 
-    /* Loading Overlay (Analysis Simulation) */
+    /* Loading Overlay */
     #loadingScreen {
       display: none; padding: 100px 0; text-align: center; animation: fadeIn 0.5s ease;
     }
@@ -183,6 +183,8 @@
   </main>
 
   <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDRDzsJR4DqaO1mtbvOgIn4v1XKcPpKN5Bb6M6SySD_ifVlamEFc0-jsSb_oZCVyEc/exec";
+
     const AX = {
       ym: { name: "양명축: 소화·대사", color: "#fbbf24", file: "ym.html", desc: "위장의 따뜻한 대사 에너지가 정체된 패턴입니다. 대사 리듬 안정을 최우선으로 합니다." },
       gu: { name: "궐음축: 자율신경", color: "#a78bfa", file: "gu.html", desc: "신경계의 조율 시스템이 과각성된 패턴입니다. 고요한 조절력 회복이 필요합니다." },
@@ -245,17 +247,20 @@
       document.getElementById("ptext").textContent = `${answered} / ${QUESTIONS.length}`;
     }
 
-    function calculateResult() {
+    async function calculateResult() {
       let allFilled = true;
-      QUESTIONS.forEach((_, i) => { if(document.getElementById(`q${i}`).value === "") allFilled = false; });
+      const qValues = [];
+      QUESTIONS.forEach((_, i) => { 
+        const val = document.getElementById(`q${i}`).value;
+        if(val === "") allFilled = false; 
+        qValues.push(val);
+      });
       if(!allFilled) { alert("모든 문항에 체크해 주세요."); return; }
 
-      // 1. 단계: 퀴즈 패널 숨기기 & 로딩 화면 띄우기
       document.getElementById("quizPanel").style.display = "none";
       document.getElementById("loadingScreen").style.display = "block";
       window.scrollTo(0, 0);
 
-      // 로딩 텍스트 애니메이션 (분위기 조성)
       const msgs = ["증상 데이터 매칭 중...", "기능축 불균형 판별 중...", "최적의 복구 플랜 산출 중..."];
       let msgIdx = 0;
       const msgInterval = setInterval(() => {
@@ -263,11 +268,10 @@
         if(msgIdx < msgs.length) document.getElementById("loaderMsg").textContent = msgs[msgIdx];
       }, 800);
 
-      // 실제 계산 로직
       const scores = { ym:0, gu:0, tu:0, su:0 };
       const maxPossible = { ym:0, gu:0, tu:0, su:0 };
       QUESTIONS.forEach((q, i) => {
-        const v = parseInt(document.getElementById(`q${i}`).value);
+        const v = parseInt(qValues[i]);
         Object.keys(AX).forEach(k => {
           scores[k] += v * (q.w[k] || 0);
           maxPossible[k] += 3 * (q.w[k] || 0);
@@ -280,11 +284,33 @@
       localStorage.setItem("genIntakeAxis", winner);
       localStorage.setItem("genIntakeScores", JSON.stringify({ axis: winner, scores: norm }));
 
-      // 2.5초 후 결과 화면 노출
+      // [핵심] 구글 시트로 데이터 전송 (백그라운드)
+      sendDataToSheet(norm, winner, qValues);
+
       setTimeout(() => {
         clearInterval(msgInterval);
         showResult(winner, norm);
       }, 2500);
+    }
+
+    function sendDataToSheet(norm, type, qVals) {
+      const formData = new URLSearchParams();
+      formData.append("ym", norm.ym);
+      formData.append("gu", norm.gu);
+      formData.append("tu", norm.tu);
+      formData.append("su", norm.su);
+      formData.append("type", type);
+      
+      qVals.forEach((val, i) => {
+        formData.append(`q${i}`, val);
+      });
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // CORS 문제 방지
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData
+      }).catch(err => console.error("Data Sync Error:", err));
     }
 
     function showResult(winner, norm) {
