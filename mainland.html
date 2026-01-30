@@ -12,7 +12,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-390KQ62CTL');
+    gtag('config', 'G-390KQ62CTL', { send_page_view: true });
   </script>
 
   <style>
@@ -47,6 +47,7 @@
     .navin { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
     .brand { display: flex; align-items: center; gap: 8px; }
     .logo-dot { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, var(--ym), var(--su)); }
+    .brand strong { font-size: 15px; letter-spacing: -0.5px; }
 
     /* Hero */
     .hero { padding: 60px 0 40px; text-align: center; }
@@ -60,7 +61,7 @@
     .btn.primary { background: #fff; color: #000; border: none; }
     .btn.outline { background: transparent; color: #fff; }
 
-    /* Personalized Result Box */
+    /* Result Box */
     .personal { display: none; margin: 30px 0; padding: 24px; background: rgba(255,255,255,0.02); border-radius: var(--radius); border: 1px solid var(--line); text-align: left; animation: fadeIn 0.5s ease; }
     .p-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .p-badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; border: 1px solid; }
@@ -74,24 +75,34 @@
     .quad-content h3 { font-size: 19px; margin: 0 0 4px; }
     .quad-content p { font-size: 13px; color: var(--muted); margin: 0; }
 
-    /* [Improved] Disease Maze UI */
-    .maze-container {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 40px 20px; margin: 20px 0; position: relative; overflow: hidden;
+    /* [Hybrid] Disease Maze UI */
+    .maze-wrap {
+      position: relative;
+      background: url('https://raw.githubusercontent.com/bodyallhani/gen-intake/main/maze-bg.png') no-repeat center;
+      background-size: cover;
+      border: 1px solid var(--line);
+      border-radius: 40px;
+      padding: 80px 20px;
+      margin: 20px 0;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
     }
-    .maze-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 600px; margin: 0 auto 30px; }
+    .maze-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 700px; margin: 0 auto 50px; position: relative; z-index: 2; }
     .s-tag { 
-      padding: 8px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--line); 
-      border-radius: 99px; font-size: 12px; font-weight: 600; color: var(--muted); 
+      padding: 10px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+      border-radius: 99px; font-size: 14px; font-weight: 600; color: var(--muted); 
+      backdrop-filter: blur(10px); transition: 0.3s;
     }
-    .maze-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--line), var(--su)); margin: 0 auto 20px; }
-    .maze-core {
-      font-size: 18px; font-weight: 800; color: #fff; background: rgba(59, 130, 246, 0.1);
-      display: inline-block; padding: 12px 24px; border-radius: 12px; border: 1px solid var(--su);
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    .s-tag:hover { border-color: #fff; color: #fff; transform: translateY(-3px); background: rgba(255,255,255,0.1); }
+    .maze-focus-line { width: 1px; height: 80px; background: linear-gradient(to bottom, transparent, var(--su)); margin: 0 auto 30px; position: relative; z-index: 2; }
+    .maze-core-badge {
+      font-size: 24px; font-weight: 800; color: #fff; background: rgba(5, 8, 15, 0.85);
+      display: inline-block; padding: 18px 40px; border-radius: 20px; border: 1.5px solid var(--su);
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.4); backdrop-filter: blur(15px);
+      position: relative; z-index: 2; margin-bottom: 20px;
     }
 
-    /* FAQ */
+    /* FAQ System */
     .faq-category { margin-bottom: 40px; }
     .faq-category-title { font-size: 13px; font-weight: 800; color: var(--su); margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; }
     .faq details { margin-bottom: 12px; background: var(--card); border-radius: 16px; border: 1px solid var(--line); transition: 0.3s; }
@@ -104,6 +115,8 @@
 
     /* Sticky Footer */
     .sticky { position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 200; background: #fff; color: #000; padding: 12px 20px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+
+    footer { padding: 40px 0 120px; text-align: center; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @media (min-width: 769px) { .quad-grid { grid-template-columns: repeat(2, 1fr); } .hero h1 { font-size: 52px; } }
@@ -185,17 +198,21 @@
 
     <section id="disease-maze" style="text-align: center; border-top: none;">
       <div class="kicker" style="color: var(--su);">Beyond the Disease Name</div>
-      <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 24px;">진단명은 결과일 뿐,<br>사람마다 <span style="color: var(--ym);">진짜 주인(축)</span>은 다릅니다.</h2>
+      <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 24px;">진단명은 현상일 뿐,<br>사람마다 <span style="color: var(--ym);">진짜 주인(축)</span>은 다릅니다.</h2>
       
-      <div class="maze-container">
+      <div class="maze-wrap">
         <div class="maze-tags">
           <span class="s-tag">#성인아토피</span> <span class="s-tag">#공황장애</span> <span class="s-tag">#과민성대장</span>
           <span class="s-tag">#만성비염</span> <span class="s-tag">#불면증</span> <span class="s-tag">#역류성식도염</span>
           <span class="s-tag">#만성피로</span> <span class="s-tag">#갱년기</span> <span class="s-tag">#이명</span>
+          <span class="s-tag">#두드러기</span> <span class="s-tag">#어지럼증</span> <span class="s-tag">#건선</span>
         </div>
-        <div class="maze-arrow"></div>
-        <div class="maze-core">4대 기능축 불균형</div>
-        <p style="color: var(--muted); font-size: 14px; margin-top: 24px; line-height: 1.8; max-width: 500px; margin-left: auto; margin-right: auto;">
+        
+        <div class="maze-focus-line"></div>
+        
+        <div class="maze-core-badge">4대 기능축 불균형</div>
+        
+        <p style="color: var(--muted); font-size: 15px; margin-top: 24px; line-height: 1.8; max-width: 500px; margin-left: auto; margin-right: auto; position: relative; z-index: 2;">
           병명에 맞춘 뻔한 치료가 반복되었다면,<br>이제 당신의 증상을 지배하는 <b>진짜 원인</b>을 만날 차례입니다.
         </p>
       </div>
